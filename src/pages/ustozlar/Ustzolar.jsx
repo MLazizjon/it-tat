@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './ustozlar.styles';
-import { FaQuoteLeft, FaFacebookF, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
+import { FaQuoteLeft} from 'react-icons/fa';
 
 const ustozlarData = [
   { id: 1, name: "G'olibjon Davronov", direction: "Backend", experience: "5+ yil", img: "/t1.png", bio: "Python va Django bo'yicha katta tajribaga ega mutaxassis." },

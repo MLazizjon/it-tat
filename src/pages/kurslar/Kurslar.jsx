@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './kurslar.styles';
-import { FaFacebookF, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
+// import { FaFacebookF, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 
 // Kurslar ma'lumotlari
 const kurslarData = [

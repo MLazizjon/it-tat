@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './online.styles';
-import { FaFacebookF, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
+// import { FaFacebookF, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 
 const Online = () => {
   const navigate = useNavigate();
