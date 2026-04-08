@@ -293,10 +293,10 @@ const Home = () => {
             <span className="contact-item">+998 (88) 611-04-40</span>
             <span className="contact-item">+998 (90) 602-04-40</span>
             <div className="socials">
-              <a href="#">Fb</a>
-              <a href="#">Insta</a>
-              <a href="#">Tg</a>
-            </div>
+  <button type="button">Fb</button>
+  <button type="button">Insta</button>
+  <button type="button">Tg</button>
+</div>
           </S.FooterCol>
         </S.FooterGrid>
         <S.Copyright>© 2024 IT TAT O'quv Markazi. Barcha huquqlar himoyalangan.</S.Copyright>

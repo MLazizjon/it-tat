@@ -68,10 +68,10 @@ const Ustozlar = () => {
             <h4>ALOQA:</h4>
             <span>+998 (88) 611-04-40</span>
             <div className="socials">
-              <a href="#" className="icon-link"><FaFacebookF /></a>
-              <a href="#" className="icon-link"><FaInstagram /></a>
-              <a href="#" className="icon-link"><FaTelegramPlane /></a>
-            </div>
+  <button type="button">Fb</button>
+  <button type="button">Insta</button>
+  <button type="button">Tg</button>
+</div>
           </S.FooterCol>
         </S.FooterGrid>
       </S.Footer>
