@@ -1,22 +1,108 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './kurslar.styles';
-// import { FaFacebookF, FaInstagram, FaTelegramPlane } from 'react-icons/fa';
 
-// Kurslar ma'lumotlari
+// Rasmlar (Assets)
+import person_1 from './assets/person_1.png';
+import person_2 from './assets/persom_2.png';
+import person_3 from './assets/person_3.png';
+import person_4 from './assets/person_4.png';
+import indi from './assets/indivi.png';
+import mini from './assets/mini.png';
+
+// Kurslar uchun batafsil ma'lumotlar bazasi
 const kurslarData = [
-  { id: 1, title: "Backend", teacher: "G'olibjon Davronov", duration: "6 oy", days: "3 kun", hours: "2 soat", img: "/t1.png" },
-  { id: 2, title: "Frontend", teacher: "Shaxzod Muradov", duration: "6 oy", days: "3 kun", hours: "2 soat", img: "/t2.png" },
-  { id: 3, title: "Frontend", teacher: "Sayyorbek Xoliqov", duration: "6 oy", days: "3 kun", hours: "2 soat", img: "/t3.png" },
-  { id: 4, title: "Robototexnika", teacher: "Toshtemir Abduraxmonov", duration: "6 oy", days: "3 kun", hours: "2 soat", img: "/t4.png" },
-  { id: 5, title: "Foundation va backend", teacher: "Muhammad G'ulomhusinov", duration: "6 oy / 2 oy", days: "3 kun", hours: "2 soat", img: "/t5.png" },
-  { id: 6, title: "Kompyuter savodxonligi", teacher: "Jahongir Xamidov", duration: "2 oy", days: "3 kun", hours: "2 soat", img: "/t6.png" },
-  { id: 7, title: "Grafik dizayn", teacher: "Og'abek G'ulomov", duration: "5 oy", days: "3 kun", hours: "2 soat", img: "/t7.png" },
-  { id: 8, title: "Kompyuter savodxonligi", teacher: "Mansur Xamidov", duration: "2 oy", days: "3 kun", hours: "2 soat", img: "/t8.png" },
-  { id: 9, title: "SMM", teacher: "Moxinur Shodmonova", duration: "3 oy", days: "3 kun", hours: "2 soat", img: "/t9.png" },
-  { id: 10, title: "Robototexnika", teacher: "Islom Xolmurodov", duration: "6 oy", days: "3 kun", hours: "2 soat", img: "/t10.png" },
+  { 
+    id: 1, 
+    title: "Backend", 
+    teacher: "G'olibjon Davronov", 
+    duration: "6 oy", 
+    days: "3 kun", 
+    hours: "2 soat", 
+    img: person_1,
+    details: {
+      about: "Backend kursi orqali siz zamonaviy veb-ilovalarning server qismini, ma'lumotlar bazasi bilan ishlashni va xavfsizlik tizimlarini yaratishni professional darajada o'rganasiz.",
+      lessons: [
+        "Python dasturlash tili asoslari",
+        "Django va Django Rest Framework",
+        "PostgreSQL va Ma'lumotlar bazasi arxitekturasi",
+        "Docker va Serverga yuklash (Deployment)",
+        "Telegram botlar va murakkab API integratsiyalari"
+      ],
+      target: "Mantiqiy fikrlashni yoqtiradigan va tizimlarning ichki ishlash jarayoniga qiziquvchilar uchun.",
+      price: "1,200,000 so'm / oy"
+    }
+  },
+  { 
+    id: 2, 
+    title: "Frontend", 
+    teacher: "Shaxzod Muradov", 
+    duration: "6 oy", 
+    days: "3 kun", 
+    hours: "2 soat", 
+    img: person_2,
+    details: {
+      about: "Frontend kursi foydalanuvchilar bevosita ko'radigan va muloqot qiladigan veb-interfeyslarni yaratishga qaratilgan. Kursda zamonaviy SPA ilovalar yaratish o'rgatiladi.",
+      lessons: [
+        "HTML5 va CSS3 (Advanced Layouts)",
+        "JavaScript ES6+ va Asinxron dasturlash",
+        "React JS va State Management (Redux)",
+        "Next.js va SEO asoslari",
+        "Tailwind CSS va UI kutubxonalar"
+      ],
+      target: "Vizual natijalarni yoqtiradigan va kreativ interfeyslar yaratishga qiziquvchilar uchun.",
+      price: "1,200,000 so'm / oy"
+    }
+  },
+  { 
+    id: 3, 
+    title: "Frontend", 
+    teacher: "Sayyorbek Xoliqov", 
+    duration: "6 oy", 
+    days: "3 kun", 
+    hours: "2 soat", 
+    img: person_3,
+    details: {
+      about: "Ushbu kursda zamonaviy frontend texnologiyalari amaliy loyihalar va networking asosida o'rgatiladi.",
+      lessons: [
+        "Veb-saytlarni adaptiv qilish",
+        "JavaScript mantiqiy masalalari",
+        "React Hooks va Custom Hooks",
+        "REST API bilan ishlash",
+        "Git va GitHub bilan jamoada ishlash"
+      ],
+      target: "IT sohasida kuchli portfolio yaratmoqchi bo'lgan boshlovchilar uchun.",
+      price: "1,100,000 so'm / oy"
+    }
+  },
+  { 
+    id: 4, 
+    title: "Robototexnika", 
+    teacher: "Toshtemir Abduraxmonov", 
+    duration: "6 oy", 
+    days: "3 kun", 
+    hours: "2 soat", 
+    img: person_4,
+    details: {
+      about: "Robototexnika kursi elektronika va dasturlashni birlashtiradi. O'quvchilar o'z qo'llari bilan aqlli qurilmalar va robotlarni yasashni o'rganadilar.",
+      lessons: [
+        "Arduino mikrokontrollerlari",
+        "Elektron komponentlar va datchiklar",
+        "C++ asosida mikrokontrollerlarni dasturlash",
+        "Aqlli uy (Smart Home) prototiplari",
+        "Mobil ilova orqali robotlarni boshqarish"
+      ],
+      target: "Muhandislik, elektronika va yangi texnologiyalarga qiziquvchi yoshlar uchun.",
+      price: "800,000 so'm / oy"
+    }
+  },
 ];
 
 const Kurslar = () => {
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  const openModal = (course) => setSelectedCourse(course);
+  const closeModal = () => setSelectedCourse(null);
+
   return (
     <>
       {/* 1. ASOSIY KURSLAR RO'YXATI */}
@@ -34,7 +120,7 @@ const Kurslar = () => {
               <S.ContentBox>
                 <div className="top-row">
                   <h3>{course.title}</h3>
-                  <button>Batafsil ma'lumot</button>
+                  <button onClick={() => openModal(course)}>Batafsil ma'lumot</button>
                 </div>
                 <p className="description">
                   Bizning mentorlarimiz xalqaro darajadagi mutaxassislar bo'lib, o'z sohasida katta tajribaga ega.
@@ -55,8 +141,8 @@ const Kurslar = () => {
 
                   <S.InfoItem>
                     <div className="row">
-                      <span>Dars boshlanish vaqti</span>
-                      <b className="empty-val">-------</b>
+                      <span>Dars vaqti</span>
+                      <b className="empty-val">14:00 - 16:00</b>
                     </div>
                     <div className="dashed-line" />
                     <div className="row">
@@ -71,6 +157,47 @@ const Kurslar = () => {
         </S.KurslarGrid>
       </S.KurslarSection>
 
+      {/* --- KURS BATAFSIL MODALI --- */}
+      {selectedCourse && (
+        <S.ModalOverlay onClick={closeModal}>
+          <S.ModalContent onClick={(e) => e.stopPropagation()}>
+            <S.CloseButton onClick={closeModal}>&times;</S.CloseButton>
+            <div className="modal-header">
+              <h2>{selectedCourse.title} kursi haqida</h2>
+              <p className="teacher-name">Mentor: {selectedCourse.teacher}</p>
+            </div>
+
+            <div className="modal-body">
+              <section>
+                <h4>Kurs haqida:</h4>
+                <p>{selectedCourse.details.about}</p>
+              </section>
+
+              <section>
+                <h4>Nimalarni o'rganasiz:</h4>
+                <ul>
+                  {selectedCourse.details.lessons.map((lesson, index) => (
+                    <li key={index}>{lesson}</li>
+                  ))}
+                </ul>
+              </section>
+
+              <section>
+                <h4>Kimlar uchun:</h4>
+                <p>{selectedCourse.details.target}</p>
+              </section>
+
+              <div className="price-tag">
+                <span>Kurs narxi: </span>
+                <strong>{selectedCourse.details.price}</strong>
+              </div>
+            </div>
+
+            <S.ModalFooterBtn onClick={closeModal}>Tushunarli</S.ModalFooterBtn>
+          </S.ModalContent>
+        </S.ModalOverlay>
+      )}
+
       {/* 2. TA'LIM FORMATI */}
       <S.FormatSection>
         <S.SectionTitle style={{color: '#fff', marginBottom: '40px'}}>Ta'lim Formati</S.SectionTitle>
@@ -80,7 +207,7 @@ const Kurslar = () => {
               <h3>Individual</h3>
               <p>Har bir o'quvchining bilim darajasi, maqsadlari va o'rganish tezligiga moslashtirilgan maxsus o'quv dasturi. Ushbu kurs orqali siz IT sohasini chuqur o'zlashtirishingiz mumkin.</p>
             </div>
-            <img src="/indiv-3d.png" alt="Individual" />
+            <img src={indi} alt="Individual" />
           </S.FormatCard>
 
           <S.FormatCard>
@@ -88,7 +215,7 @@ const Kurslar = () => {
               <h3>Mini guruh</h3>
               <p>Bu kichik guruhda (odatda 4-5 kishi) o'qitish usuli bo'lib, individual yondashuv va jamoaviy o'rganish muhitini birlashtiradi.</p>
             </div>
-            <img src="/mini-3d.png" alt="Mini" />
+            <img src={indi} alt="Mini" />
           </S.FormatCard>
 
           <S.FormatCard>
@@ -96,7 +223,7 @@ const Kurslar = () => {
               <h3>Guruh</h3>
               <p>Bu 10-12 kishidan iborat jamoada ta'lim olish tizimi bo'lib, o'quvchilarga o'zaro tajriba almashish imkonini beradi.</p>
             </div>
-            <img src="/group-3d.png" alt="Guruh" />
+            <img src={mini} alt="Guruh" />
           </S.FormatCard>
         </S.FormatGrid>
       </S.FormatSection>
@@ -137,9 +264,9 @@ const Kurslar = () => {
         <S.ResultsGrid>
           {[
             { id: '01', title: 'Portfolio', desc: 'Kurs davomida nazariy bilimlar bilan birga amaliy loyihalar ustida ishlaysiz va kursni tugatganingizda, sizning shaxsiy portfoliongiz shakllanadi.' },
-            { id: '02', title: 'Networking', desc: 'Kurs davomida nazariy bilimlar bilan birga amaliy loyihalar ustida ishlaysiz va IT sohasida yangi tanishlar orttirasiz.' },
-            { id: '03', title: 'Ish taklifi', desc: 'Kurs davomida nazariy bilimlar bilan birga amaliy loyihalar ustida ishlaysiz va eng yaxshi talabalar ish taklifiga ega bo\'ladi.' },
-            { id: '04', title: 'Sertifikat', desc: 'Kurs davomida nazariy bilimlar bilan birga amaliy loyihalar ustida ishlaysiz va kursni yakunlaganda rasmiy sertifikatga ega bo\'lasiz.' }
+            { id: '02', title: 'Networking', desc: 'Siz faqat kod yozishni emas, balki sohadagi boshqa mutaxassislar bilan aloqa o\'rnatishni va networking qilishni ham o\'rganasiz.' },
+            { id: '03', title: 'Ish taklifi', desc: 'Eng yaxshi ko\'rsatkich ko\'rsatgan bitiruvchilarimizga hamkor kompaniyalarimizdan va markazimizdan ish takliflari beriladi.' },
+            { id: '04', title: 'Sertifikat', desc: 'Kursni muvaffaqiyatli yakunlaganingizdan so\'ng, sizning bilim darajangizni tasdiqlovchi rasmiy sertifikat taqdim etiladi.' }
           ].map(item => (
             <S.ResultCard key={item.id}>
               <div className="number">{item.id}</div>
@@ -154,7 +281,6 @@ const Kurslar = () => {
       <S.Footer>
         <S.FooterGrid>
           <S.FooterCol>
-            <img src="/it-tat-white.png" alt="IT TAT" className="footer-logo" />
             <p className="desc">Innovatsiya va texnologiya orqali O'zbekiston yoshlarini dunyoga tanitish</p>
           </S.FooterCol>
 
@@ -178,7 +304,6 @@ const Kurslar = () => {
               <li>SMM</li>
               <li>Foundation</li>
               <li>Robototexnika</li>
-              <li>3d Modeling Pro</li>
             </ul>
           </S.FooterCol>
 
@@ -187,10 +312,10 @@ const Kurslar = () => {
             <span className="contact-item">+998 (88) 611-04-40</span>
             <span className="contact-item">+998 (90) 602-04-40</span>
             <div className="socials">
-  <button type="button">Fb</button>
-  <button type="button">Insta</button>
-  <button type="button">Tg</button>
-</div>
+              <button type="button">Fb</button>
+              <button type="button">Insta</button>
+              <button type="button">Tg</button>
+            </div>
           </S.FooterCol>
         </S.FooterGrid>
       </S.Footer>

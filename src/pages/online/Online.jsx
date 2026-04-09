@@ -11,7 +11,7 @@ const Online = () => {
       <S.OnlineContainer>
         {/* Dekorativ elementlar */}
         <S.DecorImage src="/assets/blue-wave.png" className="top-left" alt="decor" />
-        <S.DecorImage src="/assets/blue-circle.png" className="bottom-right" alt="decor" />
+        {/* <S.DecorImage src="/assets/blue-circle.png" className="bottom-right" alt="decor" /> */}
 
         <S.Title>Online darslar yaqin kunlarda yo'lga qo'yiladi</S.Title>
         
@@ -24,7 +24,7 @@ const Online = () => {
       <S.Footer>
         <S.FooterGrid>
           <S.FooterCol>
-            <img src="/it-tat-white.png" alt="IT TAT" className="footer-logo" />
+            {/* <img src="/it-tat-white.png" alt="IT TAT" className="footer-logo" /> */}
             <p style={{fontSize: '14px', opacity: 0.9}}>
               Innovatsiya va texnologiya orqali O'zbekiston yoshlarini dunyoga tanitish
             </p>
