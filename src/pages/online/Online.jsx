@@ -10,7 +10,7 @@ const Online = () => {
     <>
       <S.OnlineContainer>
         {/* Dekorativ elementlar */}
-        <S.DecorImage src="/assets/blue-wave.png" className="top-left" alt="decor" />
+        {/* <S.DecorImage src="/assets/blue-wave.png" className="top-left" alt="decor" /> */}
         {/* <S.DecorImage src="/assets/blue-circle.png" className="bottom-right" alt="decor" /> */}
 
         <S.Title>Online darslar yaqin kunlarda yo'lga qo'yiladi</S.Title>

@@ -6,31 +6,30 @@ import it_tat from './assets/it_tat.png';
 const Header = () => {
   const location = useLocation();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", phone: "" });
 
-  // Navigatsiya linklari
-  const navLinks = [
-    { id: 1, title: 'Bosh sahifa', path: '/' },
-    { id: 2, title: 'Kurslar', path: '/kurslar' },
-    { id: 3, title: 'Ustozlar', path: '/ustozlar' },
-    { id: 4, title: 'Online kurslar', path: '/online' },
-  ];
+  // Mobil menyuni yoqish/o'chirish
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+    if (!isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  };
 
-  // Input o'zgarganda ishlaydi
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Yuborish va yopish
   const handleSubmit = (e) => {
     e.preventDefault();
     if (formData.name && formData.phone) {
       alert(`Rahmat, ${formData.name}! Tez orada bog'lanamiz.`);
-      setFormData({ name: "", phone: "" }); // Tozalash
-      setIsModalOpen(false); // Modalni yopish
-    } else {
-      alert("Iltimos, barcha maydonlarni to'ldiring!");
+      setFormData({ name: "", phone: "" });
+      setIsModalOpen(false);
     }
   };
 
@@ -42,55 +41,83 @@ const Header = () => {
         </Link>
       </S.Logo>
 
+      {/* Desktop Navigatsiya */}
       <S.NavList>
-        {navLinks.map((link) => (
-          <li key={link.id}>
-            <S.NavLink 
-              as={Link} 
-              to={link.path} 
-              $isActive={location.pathname === link.path}
-            >
-              {link.title}
-            </S.NavLink>
-          </li>
-        ))}
+        <li><S.NavLink as={Link} to="/" $isActive={location.pathname === '/'}>Bosh sahifa</S.NavLink></li>
+        <li><S.NavLink as={Link} to="/kurslar" $isActive={location.pathname === '/kurslar'}>Kurslar</S.NavLink></li>
+        <li><S.NavLink as={Link} to="/ustozlar" $isActive={location.pathname === '/ustozlar'}>Ustozlar</S.NavLink></li>
+        <li><S.NavLink as={Link} to="/online" $isActive={location.pathname === '/online'}>Online kurslar</S.NavLink></li>
       </S.NavList>
 
       <S.Actions>
-        <S.PhoneNumber href="tel:+998886110440">
-           +998 (88) 611-04-40
+        <S.PhoneNumber href="tel:+998886110440" className="desktop-phone">
+          +998 (88) 611-04-40
         </S.PhoneNumber>
         
-        {/* Tugmani bosganda modal ochiladi */}
         <S.RegisterButton onClick={() => setIsModalOpen(true)}>
           RO'YXATDAN O'TISH
         </S.RegisterButton>
+
+        {/* Mobil menyu ochish tugmasi */}
+        <S.MenuButton onClick={toggleMenu}>
+          Menu
+        </S.MenuButton>
       </S.Actions>
 
-      {/* --- MODAL QISMI --- */}
+      {/* --- MOBIL OVERLAY MENU --- */}
+      <S.OverlayMenu $isOpen={isMenuOpen}>
+        {/* SIZ SO'RAGAN YOPISH TUGMASI */}
+        <S.CloseButton 
+          style={{ top: '20px', right: '6%', fontSize: '40px', color: '#1e1e1e' }} 
+          onClick={toggleMenu}
+        >
+          &times;
+        </S.CloseButton>
+
+        <S.OverlayContent>
+          <div className="menu-section">
+            <span className="section-label">Navigatsiya</span>
+            <Link to="/" onClick={toggleMenu}>Bosh sahifa</Link>
+            <Link to="/kurslar" onClick={toggleMenu}>Kurslar </Link>
+            <Link to="/ustozlar" onClick={toggleMenu}>Ustozlar</Link>
+            <Link to="/online" onClick={toggleMenu}>Online</Link>
+          </div>
+
+          <div className="menu-section">
+            <span className="section-label">Kontaktlar</span>
+            <a href="tel:+998886110440" className="large-text">+998 (88) 611-04-40</a>
+          </div>
+
+          <div className="menu-section">
+            <span className="section-label">Manzil</span>
+            <p className="address-text">Samarqand sh., Mirzo Ulug'bek ko'chasi 35-uy</p>
+          </div>
+        </S.OverlayContent>
+      </S.OverlayMenu>
+
+      {/* --- REGISTRATSIYA MODAL --- */}
       {isModalOpen && (
         <S.ModalOverlay onClick={() => setIsModalOpen(false)}>
           <S.ModalContent onClick={(e) => e.stopPropagation()}>
             <S.CloseButton onClick={() => setIsModalOpen(false)}>&times;</S.CloseButton>
             <h3>Ro'yxatdan o'tish</h3>
             <p>Ma'lumotlaringizni qoldiring, biz sizga qo'ng'iroq qilamiz.</p>
-            
             <form onSubmit={handleSubmit}>
               <S.ModalInput 
-                name="name"
+                name="name" 
                 type="text" 
                 placeholder="Ismingiz" 
-                value={formData.name}
-                onChange={handleInputChange}
-                required
+                value={formData.name} 
+                onChange={handleInputChange} 
+                required 
               />
               <S.ModalInput 
-                name="phone"
+                name="phone" 
                 type="text" 
                 placeholder="Telefon raqamingiz" 
-                value={formData.phone}
-                onChange={handleInputChange}
-                required
+                value={formData.phone} 
+                onChange={handleInputChange} 
+                required 
               />
               <S.SubmitBtn type="submit">Yuborish</S.SubmitBtn>
             </form>
